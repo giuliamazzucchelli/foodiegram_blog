@@ -20,7 +20,21 @@ gem 'jbuilder', '~> 2.7'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use Active Model has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
+gem 'bcrypt', '~> 3.1.7'
+gem 'devise'
+gem 'rails_admin', '~> 2.0'
+gem 'activestorage'
+gem 'image_processing'
+gem 'active_storage_validations'
+gem 'rmagick', '~> 2.13.4'
+gem 'acts_as_votable', '~> 0.10.0'
+gem 'kaminari'
+gem 'bootstrap-kaminari-views'
+gem 'activeadmin'
+gem 'fabrication'
+gem 'shoulda-matchers'
+gem 'font-awesome-sass', '~> 5.15.1'
+gem 'database_cleaner'
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
