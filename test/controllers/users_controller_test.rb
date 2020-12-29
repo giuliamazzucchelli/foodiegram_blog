@@ -47,6 +47,30 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
         assert_redirected_to user_url(@user2)
     end
 
+    test "should delete user" do
+        sign_in(@user)
+        assert_difference("User.count",-1) do
+            delete user_url(@user.id)
+        end
+        assert_redirected_to root_path        
+    end
 
+    test "should not delete user if not logged in" do
+        assert_difference("User.count",0) do
+            delete user_url(@user.id)
+        end
+        assert_redirected_to new_user_session_url
+
+    end
+
+
+    test "should not a different user" do
+        sign_in(@user)
+        assert_difference("User.count",0) do
+            delete user_url(@user2.id)
+        end
+        assert_redirected_to user_url(@user2)
+
+    end
 
 end
