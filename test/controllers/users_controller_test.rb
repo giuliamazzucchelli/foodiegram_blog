@@ -47,6 +47,6 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
         assert_redirected_to user_url(@user2)
     end
 
-    
 
-en
+
+end
