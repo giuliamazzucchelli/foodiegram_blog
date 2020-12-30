@@ -6,7 +6,9 @@ class ActiveSupport::TestCase
   # Run tests in parallel with specified workers
   parallelize(workers: :number_of_processors, with: :threads)
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
-  fixtures :all
+  #fixtures :all
 
-  # Add more helper methods to be used by all tests here...
+  def sign_in(user)
+    post new_user_session_path, params: {email: user.email,password: user.password} 
+  end
 end
