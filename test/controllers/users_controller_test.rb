@@ -5,8 +5,8 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     include Devise::Test::IntegrationHelpers
 
     setup do
-        @user = User.create(email: "user@example.com", password: "password", username: "User")
-        @user2 = User.create(email: "user2@example.com", password: "password", username: "User2")
+        @user = User.create(email: "usermail@example.com", password: "password", username: "User98")
+        @user2 = User.create(email: "usermail2@example.com", password: "password", username: "User28")
     end
 
     test "should get index" do

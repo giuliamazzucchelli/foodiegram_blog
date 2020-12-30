@@ -5,7 +5,7 @@ class UserIntegrationTest < ActionDispatch::IntegrationTest
     include Devise::Test::IntegrationHelpers
     
     setup do
-        @user = User.create(email: "user@example.com", password: "password", username: "User")
+        @user = User.create(email: "userdemo@example.com", password: "password", username: "UserDemo")
     end
 
     test "should visit index" do
@@ -17,7 +17,7 @@ class UserIntegrationTest < ActionDispatch::IntegrationTest
     test "should visit profile" do
         get user_path(@user)
         assert_response :success
-        assert_select "h1", "User's profile"
+        assert_select "h1", "UserDemo's profile"
     end
 
 
