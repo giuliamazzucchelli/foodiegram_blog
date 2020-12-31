@@ -1,0 +1,31 @@
+<div class="container">
+<% @users.each do |user| %>
+    <div class="row justify-content-md-center">
+        <div class="col-8 mt-4">
+            <div class="card text-center shadow mb-5 bg-white rounded">
+                <div class="card-header font-italic">
+                    <%= link_to user.username, user,:class=>"text-dark", :style=>"text-decoration:none;font-size:20px;"%>
+                </div>
+                <div class="row justify-content-md-center">
+           
+                <div style="width:400px; height:auto" class="mt-4">
+                <% if user.avatar.attached? %>
+                    <%= image_tag(user.avatar_thumbnail,alt: "Trust me I'm cool",:class=>"rounded-circle",:style=> "line-height:200px;width:200px;height: 200px;") %>
+                <% else %>
+                    <%= image_tag("default.png", alt: "A smiling face", width: "300")%>
+                <% end %>
+                </div>
+       
+                </div>
+                <div class="card-body">
+                   <%= user.bio %>
+                </div>
+
+                <div class="card-footer text-muted">
+                    <small> Joined <%=time_ago_in_words(user.created_at)%> ago </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <% end %>
+</div>

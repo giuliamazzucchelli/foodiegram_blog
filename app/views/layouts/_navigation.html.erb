@@ -1,0 +1,42 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="nav-bar-brand">
+          <%= link_to "Foodiegram", root_path, class: "nav-link" %>
+  </div>  
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span> </button>
+  <ul class="navbar-nav">
+    <li class="nav-item">
+      <%= link_to "Bloggers", users_path, class: "nav-link" %>
+    </li>
+   
+  
+  </ul>
+  <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+    <ul class="navbar-nav ml-auto">
+      <% if user_signed_in? %>
+        <li class="nav-item ml-auto dropdown ">
+          <a class="nav-link  dropdown-toggle" href="#" id="navbarDropdown-user" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <%= current_user.username %>
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <%= link_to " Profile", user_path(current_user), class: "dropdown-item" %>
+            <%= link_to "Edit you profile", edit_user_path(current_user), class: "dropdown-item" ,id: "dropdown-editprofile"%>
+            <%= link_to 'Log out', destroy_user_session_path, class: "dropdown-item", method: :delete,id: "dropdown-logout" %>
+            <%= link_to "Delete account", user_path(current_user), class: "dropdown-item text-danger",id:"dropdown-delete",method: :delete, data: { confirm: "Are you sure?" },id: "dropdown-delete" %> 
+          </div>
+        </li>
+
+      <% else %>
+          <li class="nav-item">
+            <%= link_to 'Login', new_user_session_path, class: "nav-link" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to 'Sign up', new_user_registration_path, class: "nav-link" %>
+          </li>
+      <% end %>  
+    </ul>
+  </div>
+
+
+</nav>
+
