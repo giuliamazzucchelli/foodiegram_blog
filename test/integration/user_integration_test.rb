@@ -18,6 +18,8 @@ class UserIntegrationTest < ActionDispatch::IntegrationTest
         get user_path(@user)
         assert_response :success
         assert_select "h1", "UserDemo's profile"
+        assert_select "h3", "Recipes"
+
     end
 
 

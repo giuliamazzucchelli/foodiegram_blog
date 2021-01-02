@@ -1,0 +1,66 @@
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-10">
+            <%= render 'shared/errors', obj: @recipe%>
+            <%= form_with(model: @recipe,class:"shadow p-3 mb-3 rounded", local: true) do |f|%>
+                <div class="form-group row">
+                    <%= f.label :title, class:"col-2 col-form-label text-dark" %>
+                    <div class="col-10">
+                        <%= f.text_field :title, class:"form-control shadow rounded",maxlength:40 %>
+                    </div>    
+                </div>
+                <div class="form-group row">
+                    <%= f.label :servings, class:"col-2 col-form-label text-dark" %>
+                    <div class="col-10">
+                        <%= f.number_field :servings, class:"form-control shadow rounded", min:1 %>
+                    </div>    
+                </div>
+                <div class="form-group row">
+                    <%= f.label :prep_time, class:"col-2 col-form-label text-dark" %>
+                    <div class="col-10">
+                        <%= f.number_field :prep_time, class:"form-control shadow rounded", min:1 %> minutes
+                    </div>    
+                </div>
+                <div class="form-group row">
+                    <%= f.label :cook_time, class:"col-2 col-form-label text-dark" %>
+                    <div class="col-10">
+                        <%= f.number_field :cook_time, class:"form-control shadow rounded",min:0 %> minutes
+                    </div>    
+                </div>
+                <div class="form-group row">
+                    <%= f.label :ingredients, class:"col-2 col-form-label text-dark" %>
+                    <div class="col-10">
+                        <%= f.text_area :ingredients,rows:8, class:"form-control shadow rounded",maxlength:500%>
+                    </div>    
+                </div>
+                <div class="form-group row">
+                    <%= f.label :directions, class:"col-2 col-form-label text-dark" %>
+                    <div class="col-10">
+                        <%= f.text_area :directions,rows:10, class:"form-control shadow rounded",maxlength:1000 %>
+                    </div>    
+                </div>
+                
+
+                <div class="form-group row">
+                    <%= f.label :notes, class:"col-2 col-form-label text-dark" %>
+                    <div class="col-10">
+                        <%= f.text_area :notes,rows:3, class:"form-control shadow rounded",maxlength:100 %>
+                    </div>    
+                </div>
+
+                <div class="form-group row">
+                    <%= f.label :picture, class:"col-2 col-form-label text-dark" %>
+                    <%= f.file_field :picture,class:"col-2 col-form-label text-dark" %>
+                </div>
+                
+                <div class="form-group row justify-content-center">
+                    <%= f.submit class:"btn btn-outline-dark btn-lg" %>
+                </p>
+
+            <% end %>
+        </div>
+        <div class="mb-3">
+        <%= link_to 'Cancel and return to recipes listing', recipes_path, class:"btn btn-outline-dark btn-m"%>
+        </div> 
+    </div>
+</div>

@@ -4,6 +4,7 @@ class UsersController < ApplicationController
     before_action :require_same_user, only: [:edit, :update, :destroy]
 
     def show
+        @recipes = @user.recipes.per_page_kaminari(params[:page])
     end
 
     def index

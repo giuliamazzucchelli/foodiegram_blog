@@ -26,8 +26,7 @@ class UsersTest < ActionDispatch::SystemTestCase
         click_on "Log out"
         text = find(:xpath, "//*[@id='page-content']/div[1]/div").text
         assert text.include?("Signed out successfully")
-
-    end
+  end
 
   
 
