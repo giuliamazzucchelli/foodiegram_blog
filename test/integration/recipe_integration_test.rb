@@ -81,8 +81,4 @@ class RecipeIntegrationTest < ActionDispatch::IntegrationTest
     assert_select "h1","No recipes found for @@!"
   end
 
-
-
-
-
 end
