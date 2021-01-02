@@ -25,7 +25,7 @@ class UsersTest < ActionDispatch::SystemTestCase
     page.assert_selector('h2',text:'Chocolate cookies')
     click_on "Edit"
     fill_in "Servings",with: 6
-    find(:xpath,"").click
+    find(:xpath,"//*[@id='recipe_category_ids']/option[2]").click
     click_on :commit
     text = find(:xpath, "//*[@id='page-content']/div[1]/div").text
     assert text.include?("Recipe was updated successfully")
