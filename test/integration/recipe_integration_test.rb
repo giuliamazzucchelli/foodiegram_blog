@@ -70,6 +70,19 @@ class RecipeIntegrationTest < ActionDispatch::IntegrationTest
     assert_select "h2", @recipe.title
   end
 
+  test "should search" do
+    get '/recipes?search=coOKies'
+    assert_select "h1","1 recipe found for cookies"
+    
+  end
+
+  test "should notice if no recipe found" do
+    get '/recipes?search=@@!'
+    assert_select "h1","No recipes found for @@!"
+  end
+
+
+
 
 
 end
