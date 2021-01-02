@@ -101,6 +101,24 @@ class RecipesControllerTest < ActionDispatch::IntegrationTest
         assert_redirected_to recipe_url(@recipe2)
     end
 
-
+    test "should like a recipe " do 
+        sign_in(@user)
+        assert_difference("Vote.where('votable_id = ? AND votable_type = ?',@recipe.id,Recipe).count", 1) do
+            put like_recipe_url(@recipe), params: {format: 'like', voter_id: @user.id}
+        end
+        assert_redirected_to recipe_url(@recipe)
    
+    end
+
+    test "should dislike a recipe" do
+        sign_in(@user)
+        @recipe.liked_by @user
+        assert_difference("Vote.where('votable_id = ? AND votable_type = ?',@recipe.id,Recipe).count", -1) do
+            put like_recipe_url(@recipe), params: {format: 'unlike', voter_id: @user.id}
+        end
+        assert_redirected_to recipe_url(@recipe)
+    end
+
+
+
 end
