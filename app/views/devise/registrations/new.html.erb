@@ -1,6 +1,8 @@
 <div class="container mt-5">
+      <div class= "text-center">
+      <h2 class="text-center"> Sign up </h2>
+      </div>
   <div class="row justify-content-center ">
-    <h2> Sign up </h2>
       <div class="col-6 mt-5 shadow rounded justify-content-center ">
       <%= form_for(resource, as: resource_name,class:"shadow p-3 mb-4 rounded", url: registration_path(resource_name)) do |f| %>
         <%= render "devise/shared/error_messages", resource: resource %>

@@ -28,21 +28,29 @@
             <%= current_user.username %>
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <%= link_to " Profile", user_path(current_user), class: "dropdown-item" %>
+            <%= link_to "Profile", user_path(current_user), class: "dropdown-item" %>
             <%= link_to "Edit you profile", edit_user_path(current_user), class: "dropdown-item" ,id: "dropdown-editprofile"%>
-            <%= link_to 'Log out', destroy_user_session_path, class: "dropdown-item", method: :delete,id: "dropdown-logout" %>
+            <%= link_to "Log out", destroy_user_session_path, class: "dropdown-item", method: :delete,id: "dropdown-logout" %>
             <%= link_to "Delete account", user_path(current_user), class: "dropdown-item text-danger",id:"dropdown-delete",method: :delete, data: { confirm: "Are you sure?" },id: "dropdown-delete" %> 
           </div>
         </li>
+      <% elsif admin_signed_in?%>
+        <%= link_to "Admin page", rails_admin.dashboard_path, class: "nav-link" %>
+      <%else %>
+        <li class="nav-item ml-auto dropdown ">
+          <a class="nav-link  dropdown-toggle" href="#" id="navbarDropdown-user" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Log in
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <%= link_to "User", new_user_session_path, class: "dropdown-item" %>
+            <%= link_to "Admin", new_admin_session_path, class: "dropdown-item"%>
 
-      <% else %>
-          <li class="nav-item">
-            <%= link_to 'Log in', new_user_session_path, class: "nav-link" %>
-          </li>
-          <li class="nav-item">
-            <%= link_to 'Sign up', new_user_registration_path, class: "nav-link" %>
-          </li>
-      <% end %>  
+          </div>
+        </li>
+        <li class="nav-item">
+          <%= link_to 'Sign up', new_user_registration_path, class: "nav-link" %>
+        </li> 
+      <%end%>
     </ul>
   </div>
 
