@@ -1,7 +1,13 @@
   
-<h1 class="text-center mt-4">Recipes</h1>
-
-
+<h1 class="text-center mt-4">
+  <% if params[:search] && @recipes.count!= 0%>
+    <%= pluralize(@recipes.count,'recipe')%> found for <%=@search_term.downcase%>
+  <%elsif params[:search] && @recipes.count== 0%>
+    No recipes found for <%=@search_term.downcase%>
+  <%else%>
+    Recipes
+  <%end%>
+</h1>
   <%= paginate @recipes %>
     <%= render 'recipe' %>
   <%= paginate @recipes%>

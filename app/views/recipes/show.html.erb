@@ -23,7 +23,6 @@
                         <%end %></p>
                     </div>
 
-
                     <div class="card-text text-left"><%=simple_format(@recipe.ingredients)%></div>
                     <div class="card-text text-left"><%=simple_format(@recipe.directions)%></div>
                     <% if user_signed_in? && (current_user == @recipe.user)%>

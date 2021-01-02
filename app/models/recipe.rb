@@ -25,6 +25,10 @@ class Recipe < ApplicationRecord
         picture.variant(resize: "300x300!").processed
     end
 
+    def self.search_by(search_term)
+        where("lower(title) LIKE :search_term", search_term: "%#{search_term.downcase}%")
+    end
+
 
 
 

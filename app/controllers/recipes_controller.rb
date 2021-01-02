@@ -12,9 +12,6 @@ class RecipesController < ApplicationController
     if params[:search]
         @search_term=params[:search]
         @recipes=@recipes.search_by(@search_term)
-        if @recipes.size == 0
-            flash[:alert] = "No recipes found for " ++ @search_term
-        end
     end
   end
 

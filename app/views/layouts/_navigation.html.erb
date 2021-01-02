@@ -19,7 +19,11 @@
         <% end %>  
       </div>
     </li>
-  </ul>
+      <%= form_for "",url: recipes_path,class:"form-inline", role: "search",id:"search",method: :get do%>
+      <%= text_field_tag :search, @search_term,class: "form-control form-control-sm col-10",placeholder: "Search ..."%>
+      <% end%>
+    </ul>
+
   <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
     <ul class="navbar-nav ml-auto">
       <% if user_signed_in? %>
