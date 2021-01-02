@@ -5,5 +5,6 @@ Rails.application.routes.draw do
   resources :users, only: [:show,:edit,:update,:index, :destroy]
   resources :recipes
   root to: "recipes#index"
+  resources :categories, only: [:show,:index]
 
 end

@@ -8,7 +8,11 @@
                 </div>
                 <div class="card-body">
                     <h5 class="card-title" id="title-recipe"><%= link_to recipe.title, recipe_path(recipe), class:"text-success",style:"text-decoration:none;" %></h5>
-
+                    <div>
+                    <% if  recipe.categories.any? %>
+                        <div class="mt-2"><%= render recipe.categories %></div>
+                    <%end%>
+                    </div>
                     <div>
                     <% if recipe.picture.attached? %>
                         <%= image_tag(recipe.picture_thumbnail) %>

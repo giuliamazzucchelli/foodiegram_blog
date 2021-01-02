@@ -8,6 +8,9 @@
     <li class="nav-item">
       <%= link_to "Bloggers", users_path, class: "nav-link" %>
     </li>
+    <li class="nav-item">
+      <%= link_to "Categories", categories_path,id:"nav-categories", class: "nav-link" %>
+    </li>
     <li class="nav-item dropdown">
       <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         Recipes
@@ -19,9 +22,14 @@
         <% end %>  
       </div>
     </li>
-      <%= form_for "",url: recipes_path,class:"form-inline", role: "search",id:"search",method: :get do%>
-      <%= text_field_tag :search, @search_term,class: "form-control form-control-sm col-10",placeholder: "Search ..."%>
-      <% end%>
+    <li class="nav-item">
+    <div class="form-group">
+    <%= form_for "",url: recipes_path,class:"form-control col-5", role: "search",id:"search",method: :get do%>
+    <%= text_field_tag :search, @search_term, placeholder: "Search ..."%>
+    <% end%>
+    </div>
+    </li>
+
     </ul>
 
   <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
