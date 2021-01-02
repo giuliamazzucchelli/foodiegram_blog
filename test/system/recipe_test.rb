@@ -8,8 +8,7 @@ class UsersTest < ActionDispatch::SystemTestCase
   include Devise::Test::IntegrationHelpers
 
   test "should create edit and delete a recipe" do
-    visit root_path
-    click_on "Log in"
+    visit new_user_session_path
     fill_in "Email",with: "userdem@demo.com"
     fill_in "Password",with: "password"
     click_on :commit
@@ -23,8 +22,10 @@ class UsersTest < ActionDispatch::SystemTestCase
     click_on :commit
     text = find(:xpath, "//*[@id='page-content']/div[1]/div").text
     assert text.include?("Recipe was created successfully")
+    page.assert_selector('h2',text:'Chocolate cookies')
     click_on "Edit"
     fill_in "Servings",with: 6
+    find(:xpath,"").click
     click_on :commit
     text = find(:xpath, "//*[@id='page-content']/div[1]/div").text
     assert text.include?("Recipe was updated successfully")
@@ -33,6 +34,4 @@ class UsersTest < ActionDispatch::SystemTestCase
     text = find(:xpath, "//*[@id='page-content']/div[1]/div").text
     assert text.include?("Recipe was deleted successfully.")
   end
-
-
 end
