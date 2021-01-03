@@ -18,6 +18,8 @@ class RecipeIntegrationTest < ActionDispatch::IntegrationTest
 
   end
 
+
+
     test "get new recipe form and create recipe" do
       get '/recipes/new'
       assert_response :success
@@ -116,4 +118,7 @@ class RecipeIntegrationTest < ActionDispatch::IntegrationTest
         assert_select 'i.far.fa-heart.fa-2x'
     end
 
+    teardown do
+      sign_out(@user)
+    end
 end

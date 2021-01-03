@@ -23,6 +23,8 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
         sign_in(@user)
         get edit_user_path(@user)
         assert_response :success
+        sign_out(@user)
+
     end
     
     test "should not edit if not signed in" do
@@ -34,18 +36,24 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
         sign_in(@user)
         get edit_user_path(@user2)
         assert_redirected_to user_path(@user2)
+        sign_out(@user)
+
     end
 
     test "should update user" do
         sign_in(@user)
         patch user_path(@user), params: {user: {username: "User!"}}
         assert_redirected_to user_path(@user)
+        sign_out(@user)
+
     end
 
     test "should not update a different user" do
         sign_in(@user)
         patch user_path(@user2), params: {user: {username: "User2!"}}
         assert_redirected_to user_path(@user2)
+        sign_out(@user)
+
     end
 
     test "should delete user" do
@@ -53,7 +61,9 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
         assert_difference("User.count",-1) do
             delete user_path(@user)
         end
-        assert_redirected_to root_path        
+        assert_redirected_to root_path       
+        sign_out(@user)
+
     end
 
     test "should not delete user if not logged in" do
@@ -71,6 +81,8 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
             delete user_path(@user2)
         end
         assert_redirected_to user_path(@user2)
+        sign_out(@user)
+
 
     end
 

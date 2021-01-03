@@ -35,6 +35,8 @@ class RecipesControllerTest < ActionDispatch::IntegrationTest
         sign_in(@user)
         get new_recipe_url
         assert_response :success
+        sign_out(@user)
+
     end
 
     test "should create recipe" do
@@ -49,6 +51,8 @@ class RecipesControllerTest < ActionDispatch::IntegrationTest
         end
 
         assert_redirected_to recipe_url(Recipe.last)
+        sign_out(@user)
+
     end
 
     test "should not create recipe if not signed in" do
@@ -69,12 +73,15 @@ class RecipesControllerTest < ActionDispatch::IntegrationTest
         sign_in(@user)
         get edit_recipe_url(@recipe)
         assert_response :success
+        sign_out(@user)
+
     end
 
     test "should update recipe" do
         sign_in(@user)
         patch recipe_url(@recipe), params: { recipe: {title: "Chocolate chip cookies" }}
         assert_redirected_to recipe_url(@recipe)
+        sign_out(@user)
     end
 
     test "should destroy recipe" do
@@ -83,6 +90,8 @@ class RecipesControllerTest < ActionDispatch::IntegrationTest
             delete recipe_url(@recipe)
         end
         assert_redirected_to recipes_url
+        sign_out(@user)
+
     end
 
     test "should not destroy recipe if not logged in" do
@@ -99,6 +108,8 @@ class RecipesControllerTest < ActionDispatch::IntegrationTest
             delete recipe_url(@recipe2)
         end
         assert_redirected_to recipe_url(@recipe2)
+        sign_out(@user)
+
     end
 
     test "should like a recipe " do 
@@ -107,6 +118,8 @@ class RecipesControllerTest < ActionDispatch::IntegrationTest
             put like_recipe_url(@recipe), params: {format: 'like', voter_id: @user.id}
         end
         assert_redirected_to recipe_url(@recipe)
+        sign_out(@user)
+
    
     end
 
@@ -117,7 +130,10 @@ class RecipesControllerTest < ActionDispatch::IntegrationTest
             put like_recipe_url(@recipe), params: {format: 'unlike', voter_id: @user.id}
         end
         assert_redirected_to recipe_url(@recipe)
+        sign_out(@user)
+
     end
+
 
 
 
