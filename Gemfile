@@ -35,6 +35,8 @@ gem 'fabrication'
 gem 'shoulda-matchers'
 gem 'font-awesome-sass', '~> 5.15.1'
 gem 'database_cleaner'
+gem 'acts_as_favoritor'
+
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'

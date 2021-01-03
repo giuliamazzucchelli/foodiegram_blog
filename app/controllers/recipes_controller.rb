@@ -1,7 +1,8 @@
 class RecipesController < ApplicationController
-  before_action :set_recipe, only: [:show, :edit, :update, :destroy]
+  before_action :set_recipe, only: [:show, :edit, :update, :destroy,:like]
   before_action :authenticate_user!, except: [:show, :index]
   before_action :require_same_user, only: [:edit, :update, :destroy]
+  respond_to :js, :html, :json
 
   def show
 
@@ -52,6 +53,15 @@ class RecipesController < ApplicationController
       redirect_to recipes_path
       
   end
+
+  def like
+    if params[:format] == 'like'
+      @recipe.liked_by current_user
+    elsif params[:format] == 'unlike'
+      @recipe.unliked_by current_user 
+    end
+    redirect_back fallback_location: recipe_url
+  end 
 
 
 

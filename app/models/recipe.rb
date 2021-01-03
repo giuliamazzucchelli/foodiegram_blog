@@ -3,7 +3,7 @@ class Recipe < ApplicationRecord
     has_one_attached :picture
     has_many :recipe_categories
     has_many :categories, through: :recipe_categories
-
+    acts_as_votable
     
     validates :title,   presence: true,
                         length: {minimum: 5, maximum: 40}

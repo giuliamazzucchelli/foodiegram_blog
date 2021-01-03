@@ -5,6 +5,8 @@ class User < ApplicationRecord
 
   has_one_attached :avatar
   has_many :recipes, dependent: :destroy
+  acts_as_voter
+  
 
   
   validates :username,  presence: true,

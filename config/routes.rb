@@ -3,7 +3,11 @@ Rails.application.routes.draw do
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   devise_for :users
   resources :users, only: [:show,:edit,:update,:index, :destroy]
-  resources :recipes
+  resources :recipes do
+    member do
+        put 'like' => 'recipes#like'
+    end
+  end
   root to: "recipes#index"
   resources :categories, only: [:show,:index]
 
