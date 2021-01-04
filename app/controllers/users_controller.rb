@@ -1,5 +1,5 @@
 class UsersController < ApplicationController 
-    before_action :set_user, only: [:show, :edit, :update, :destroy]
+    before_action :set_user, only: [:show, :edit, :update, :destroy, :follow,:unfollow]
     before_action :authenticate_user!, except: [:show, :index]
     before_action :require_same_user, only: [:edit, :update, :destroy]
 
@@ -32,9 +32,17 @@ class UsersController < ApplicationController
 
     end
 
-
-    #follow e unfollow
-
+    def follow
+        @user = User.find(params[:id])
+        current_user.followees << @user
+        redirect_back(fallback_location: user_path(@user))
+    end
+      
+    def unfollow
+        @user = User.find(params[:id])
+        current_user.followed_users.find_by(followee_id: @user.id).destroy
+        redirect_back(fallback_location: user_path(@user))
+    end
 
     private
     #whitelist

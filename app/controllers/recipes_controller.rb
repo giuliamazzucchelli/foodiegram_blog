@@ -16,6 +16,10 @@ class RecipesController < ApplicationController
     end
   end
 
+  def board
+    @recipes= Recipe.of_followed_users(current_user.followees).order('created_at DESC').per_page_kaminari(params[:page])
+  end
+
   
   def new 
       @recipe=Recipe.new

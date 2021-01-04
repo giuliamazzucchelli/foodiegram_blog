@@ -4,6 +4,9 @@ class Recipe < ApplicationRecord
     has_many :recipe_categories
     has_many :categories, through: :recipe_categories
     acts_as_votable
+
+    scope :of_followed_users, -> (following_users) { where user_id: following_users }
+
     
     validates :title,   presence: true,
                         length: {minimum: 5, maximum: 40}

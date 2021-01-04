@@ -9,17 +9,24 @@
                 <div class="row justify-content-md-center">
            
                 <div style="width:400px; height:auto" class="mt-4">
-                <% if user.avatar.attached? %>
-                    <%= image_tag(user.avatar_thumbnail,alt: "Trust me I'm cool",:class=>"rounded-circle",:style=> "line-height:200px;width:200px;height: 200px;") %>
-                <% else %>
-                    <%= image_tag("default.png", alt: "A smiling face", width: "300")%>
-                <% end %>
+                    <% if user.avatar.attached? %>
+                        <%= image_tag(user.avatar_thumbnail,alt: "Trust me I'm cool",:class=>"rounded-circle",:style=> "line-height:200px;width:200px;height: 200px;") %>
+                    <% else %>
+                        <%= image_tag("default.png", alt: "A smiling face", width: "300")%>
+                    <% end %>
                 </div>
        
                 </div>
-                <div class="card-body">
-                   <%= user.bio %>
+                <div class="card-body mb-4">
+                    <p class="card-text"><%= pluralize(user.recipes.count, "post")%> |
+                    <%= pluralize(user.followers.count, "follower")%> |
+                    <%= user.followees.count%> followed </p> 
+                    <div class="mt-2">
+                    <h4><%= user.bio %></h4>
+                    </div>
+
                 </div>
+
 
                 <div class="card-footer text-muted">
                     <small> Joined <%=time_ago_in_words(user.created_at)%> ago </small>
