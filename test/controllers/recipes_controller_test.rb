@@ -65,7 +65,11 @@ class RecipesControllerTest < ActionDispatch::IntegrationTest
         assert_redirected_to new_user_session_url
     end
 
-
+    test "should get board page" do
+        sign_in(@user)
+        get board_recipe_url(@user)
+        assert_response :success
+    end
 
     test "should get edit" do
         sign_in(@user)

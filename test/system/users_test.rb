@@ -12,12 +12,13 @@ class UsersTest < ActionDispatch::SystemTestCase
 
     end
 
+
     test "should signup and edit profile" do
       visit new_user_registration_path
       fill_in "Email", with: "user23@example.com"
       fill_in "Password",with: "password"
       fill_in "Password confirmation",with: "password"
-      fill_in "Username", with: "user23"
+      fill_in "Username", with: "user231"
       click_on :commit
       text = find(:xpath, "//*[@id='page-content']/div[1]/div").text
       assert text.include?("Welcome! You have signed up successfully.")
@@ -25,7 +26,7 @@ class UsersTest < ActionDispatch::SystemTestCase
       attach_file("Avatar","C:/users/Fabio/Desktop/hummus.jpg")
       fill_in "Bio",with: "Hello foodies"
       click_on :commit
-      click_on "user23"
+      click_on "user231"
       click_on "Log out"
       text = find(:xpath, "//*[@id='page-content']/div[1]/div").text
       assert text.include?("Signed out successfully")
@@ -42,6 +43,17 @@ class UsersTest < ActionDispatch::SystemTestCase
       assert_no_selector(:xpath,"//*[@id='follow-btn']")
       click_on "Unfollow"
 
+    end
+
+    test "should follow a user and see their recipes on the board" do
+      sign_in(@user)
+      visit root_path
+      click_on "Bloggers"
+      click_on "username"
+      assert_no_selector(:xpath,"//*[@id='unfollow-btn']")
+      click_on "Follow"
+      visit board_recipe_url(@user)
+      assert "h5","Chocolate cookies"
     end
 
     test "a user should not follow himself " do
