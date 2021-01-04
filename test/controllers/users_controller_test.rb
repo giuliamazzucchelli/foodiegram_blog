@@ -1,8 +1,10 @@
   
 require 'test_helper'
 
+
 class UsersControllerTest < ActionDispatch::IntegrationTest
     include Devise::Test::IntegrationHelpers
+
 
     setup do
         @user = User.create(email: "usermail@example.com", password: "password", username: "User98")
@@ -75,15 +77,34 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     end
 
 
-    test "should not a different user" do
+    test "should not delete a different user" do
         sign_in(@user)
         assert_difference("User.count",0) do
             delete user_path(@user2)
         end
         assert_redirected_to user_path(@user2)
         sign_out(@user)
-
-
     end
 
+    test "should follow a user" do
+        sign_in(@user)
+        assert_difference("Follow.where('followee_id =?',@user2.id).count",1) do
+            post follow_user_path(@user2.id) , params: {follow: {followee_id: @user2.id, follower_id: @user.id}}
+        end
+        sign_out(@user)
+    end
+
+
+    test "should unfollow a user" do
+        sign_in(@user)
+        @user.followees << @user2
+        assert_difference("Follow.where('followee_id =?',@user2.id).count",-1) do
+            post unfollow_user_path(@user2.id) , params: {follow: {followee_id: @user2.id, follower_id: @user.id}}
+        end
+        sign_out(@user)
+    end
+
+
+
+ 
 end

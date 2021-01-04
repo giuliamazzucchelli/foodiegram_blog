@@ -6,7 +6,7 @@ require "test_helper"
 class RecipesTest < ActionDispatch::SystemTestCase
   driven_by :selenium, using: :chrome
   include Devise::Test::IntegrationHelpers
-
+=begin
 
   test "should create edit and delete a recipe" do
     visit new_user_session_path
@@ -33,6 +33,6 @@ class RecipesTest < ActionDispatch::SystemTestCase
    
   end
 
-
+=end
   
 end
