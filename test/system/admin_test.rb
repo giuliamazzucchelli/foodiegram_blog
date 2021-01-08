@@ -17,8 +17,6 @@ class AdminTest < ActionDispatch::SystemTestCase
 
     end
 
-
-=begin
     test "should signup as admin" do
 
         @driver.navigate.to "http://localhost:3000/admin/signup"
@@ -37,5 +35,4 @@ class AdminTest < ActionDispatch::SystemTestCase
 
     end
 
-=end
 end
