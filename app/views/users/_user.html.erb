@@ -10,7 +10,7 @@
            
                 <div style="width:400px; height:auto" class="mt-4">
                     <% if user.avatar.attached? %>
-                        <%= image_tag(user.avatar_thumbnail,alt: "Trust me I'm cool",:class=>"rounded-circle",:style=> "line-height:200px;width:200px;height: 200px;") %>
+                    <%= image_tag(user.avatar,class:"rounded-circle",width: "200",height:"200") %>
                     <% else %>
                         <%= image_tag("default.png", alt: "A smiling face", width: "300")%>
                     <% end %>

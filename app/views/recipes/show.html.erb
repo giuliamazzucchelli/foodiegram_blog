@@ -14,23 +14,26 @@
                     </div>
                     <div class="mt-2">
                         <% if @recipe.picture.attached? %>
-                            <%= image_tag(@recipe.picture_thumbnail) %>
+                            <%= image_tag(@recipe.picture,width:"400",height:"auto") %>
                         <% end %>
                     </div>
 
                     <div class="mt-3">
+                    <h6>
                         <p class="card-text">
                         <% if @recipe.servings %>
                             <%= @recipe.servings %> servings | 
                         <%end%>
-                        Preparation time: <%= @recipe.prep_time%> minutes 
+                         Preparation time: <%= @recipe.prep_time%> minutes 
                         <% if @recipe.cook_time?%> 
                         | Cooking time: <%= @recipe.cook_time%> minutes 
                         <%end %></p>
+                    </h6>
                     </div>
-
-                    <div class="card-text text-left"><%=simple_format(@recipe.ingredients)%></div>
-                    <div class="card-text text-left"><%=simple_format(@recipe.directions)%></div>
+                    <br/>
+                    <div class="card-text text-left"><h6>Ingredients:</h6><%=simple_format(@recipe.ingredients)%></div><br/>
+                    <div class="card-text text-left"><h6>Directions:</h6><%=simple_format(@recipe.directions)%></div>
+                    <div class="card-text text-left"><h6>Notes:</h6><%=simple_format(@recipe.notes)%></div>
                     <% if user_signed_in? && (current_user == @recipe.user)%>
                     <%= link_to "Edit", edit_recipe_path(@recipe), class: "btn btn-outline-info btn" %>
                     <%= link_to "Delete", recipe_path(@recipe), class: "btn btn-outline-danger btn", method: :delete, data: {confirm: "Are you sure?"} %>
