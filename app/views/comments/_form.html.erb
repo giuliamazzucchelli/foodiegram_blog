@@ -1,0 +1,10 @@
+<div class="row d-flex justify-content-center mt-100 mb-100 p-20">
+<div class="col-9">
+<%= form_for [commentable,Comment.new] do |f| %>
+    <div class="form-group">
+    <%= f.text_area :body, class: "form-control", placeholder: "Add a comment", minlength:3,maxlength:150 %>
+    </div>
+    <%= f.submit "Submit", class: "btn btn-outline-info mb-3 btn" %>
+<% end %>
+</div>
+</div>

@@ -317,6 +317,7 @@ DEPENDENCIES
   font-awesome-sass (~> 5.15.1)
   image_processing
   jbuilder (~> 2.7)
+  jquery-rails
   kaminari
   minitest-around
   pg

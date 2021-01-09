@@ -14,7 +14,12 @@ Rails.application.routes.draw do
         put 'like' => 'recipes#like'
         get 'board' => 'recipes#board'
     end
+    resources :comments
+    
   end
+
+  resources :comments, except: [:show,:index]
+
   root to: "recipes#index"
   resources :categories, only: [:show,:index]
 

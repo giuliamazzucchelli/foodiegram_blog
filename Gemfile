@@ -36,6 +36,7 @@ gem 'shoulda-matchers'
 gem 'font-awesome-sass', '~> 5.15.1'
 gem 'database_cleaner'
 gem 'acts_as_favoritor'
+gem 'jquery-rails'
 
 
 # Use Active Storage variant

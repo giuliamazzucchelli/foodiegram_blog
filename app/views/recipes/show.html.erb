@@ -1,5 +1,5 @@
 <h2 class="text-center mt-4"><%= @recipe.title%></h2>
-<div class="container">
+<div class="container pb-5">
     <div class="row justify-content-md-center">
         <div class="col-8 mt-4">
             <div class="card text-center shadow  bg-white rounded">
@@ -32,8 +32,8 @@
                     <div class="card-text text-left"><%=simple_format(@recipe.ingredients)%></div>
                     <div class="card-text text-left"><%=simple_format(@recipe.directions)%></div>
                     <% if user_signed_in? && (current_user == @recipe.user)%>
-                    <%= link_to "Edit", edit_recipe_path(@recipe), class: "btn btn-outline-info btn-sm" %>
-                    <%= link_to "Delete", recipe_path(@recipe), class: "btn btn-outline-danger btn-sm", method: :delete, data: {confirm: "Are you sure?"} %>
+                    <%= link_to "Edit", edit_recipe_path(@recipe), class: "btn btn-outline-info btn" %>
+                    <%= link_to "Delete", recipe_path(@recipe), class: "btn btn-outline-danger btn", method: :delete, data: {confirm: "Are you sure?"} %>
                     <% end%>
                 </div>
 
@@ -54,11 +54,14 @@
                     </span>
                     </div>
 
-                <div class="card-footer text-muted">
-                    <small> Created <%=time_ago_in_words(@recipe.created_at)%> ago,
-                    Updated <%=time_ago_in_words(@recipe.updated_at)%> ago </small>
+                <div class="card-footer">
                 </div>
-  
+                <%= render partial: 'comments/comment', locals: {commentable: @recipe }%>
+                <% if user_signed_in? %>
+                    <%= render partial: "comments/form", locals: {commentable: @recipe} %>
+                <% end %>
+
+
             </div>
             
         </div>
