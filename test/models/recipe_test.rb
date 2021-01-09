@@ -53,7 +53,7 @@ class RecipeTest < ActiveSupport::TestCase
     end
 
     test "directions should not be too long" do
-        @recipe.directions = "a" * 1001
+        @recipe.directions = "a" * 2001
         assert_not @recipe.valid?
     end
 

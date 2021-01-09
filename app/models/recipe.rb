@@ -23,7 +23,7 @@ class Recipe < ApplicationRecord
                             length: {minimum: 10, maximum: 500} 
 
     validates :directions,  presence:true,
-                            length: {minimum: 50, maximum: 1000}
+                            length: {minimum: 50, maximum: 2000}
 
     validates :notes, length: {maximum:100}
 
