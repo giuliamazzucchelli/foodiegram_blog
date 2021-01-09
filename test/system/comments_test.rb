@@ -31,9 +31,8 @@ class CommentsTest < ActionDispatch::SystemTestCase
         click_on :commit
         text = find(:xpath, "//*[@id='page-content']/div[1]/div").text
         assert text.include?("Your comment was successfully posted.")
-        # assert visibile username di chi ha commentato e testo commento
-        page.assert_selector('',text:'UserDemo2')
-        page.assert_selector('',text:'Amazing!')
+        page.assert_selector('h6',text:'UserDemo2')
+        page.assert_selector('h7',text:'Amazing!')
         click_on "Delete"
         page.accept_alert
         text = find(:xpath, "//*[@id='page-content']/div[1]/div").text
