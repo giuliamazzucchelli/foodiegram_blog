@@ -1,38 +1,37 @@
 require "selenium-webdriver"
 require 'rubygems'
 require 'test_helper'
-require 'database_cleaner/active_record'
 
 
 class AdminTest < ActionDispatch::SystemTestCase
+    driven_by :selenium, using: :chrome
     include Devise::Test::IntegrationHelpers
 
-    
-    def setup 
-        @caps = Selenium::WebDriver::Remote::Capabilities.new
-        @caps['desired_capailities'] ='chrome'
-        @caps['javascriptEnabled'] = 'true'
-        @driver = Selenium::WebDriver.for(:remote, :url => 'http://localhost:9515',:desired_capabilities => @caps)
-        @driver.manage.timeouts.implicit_wait = 15
-
+    setup do
+        @admin = Admin.create(email: "admin11@example.com",password:"password")
     end
 
-    test "should signup as admin" do
+    test "should signin as admin" do
+        visit new_admin_session_path
+        fill_in "Email",with: "admin11@example.com"
+        fill_in "Password",with: "password"
+        click_on :commit
+        text = find(:xpath, "/html/body/div[3]/div/div[2]/div/div[2]").text
+        assert text.include?("Signed in successfully.")
+    end
 
-        @driver.navigate.to "http://localhost:3000/admin/signup"
-
-        assert(@driver.find_element(:id, "admin_email").displayed?)
-        @driver.find_element(:id, "admin_email").send_keys("appo0po8@example.com")
-
-        assert(@driver.find_element(:id,"admin_password").displayed?)
-        @driver.find_element(:id, "admin_password").send_keys("password")
-
-        assert(@driver.find_element(:name, "commit").displayed?)
-
-        @driver.find_element(:name, "commit").click
-
-        assert(@driver.find_element(:xpath, "/html/body/div[3]/div/div[2]/div/div[2]").text.include?("Welcome! You have signed up successfully"))
-
+    test "admin should create categories" do
+        sign_in(@admin)
+        visit rails_admin.dashboard_path
+        click_on "Categories",match: :first
+        click_on "Add new"
+        fill_in "Name",with:"Gluten free"
+        click_on "Save"
+        text = find(:xpath,"/html/body/div[3]/div/div[2]/div/div[2]").text
+        assert text.include?("Category successfully created")
+        click_on "Home"
+        click_on "Categories"
+        assert(page.has_text?("Gluten free"))
     end
 
 end
