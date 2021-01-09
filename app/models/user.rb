@@ -12,8 +12,10 @@ class User < ApplicationRecord
   has_many :followers, through: :following_users
   has_many :comments, dependent: :destroy
   
+  validate :correct_avatar_type
 
-  
+
+
   validates :username,  presence: true,
                           uniqueness: {case_sensitive: false},
                           length: {minimum:3, maximum:25}
@@ -25,5 +27,19 @@ class User < ApplicationRecord
   def mini_avatar_thumbnail
     avatar.variant(resize: "100x100",gravity: "center").processed
   end
+
+
+  private
+
+  def correct_avatar_type
+    if avatar.attached? && !avatar.content_type.in?(%w(image/jpeg image/png))
+      errors.add(:avatar,"must be PNG or JPEG.")
+    end
+    if avatar.attached? && (avatar.byte_size > 1.megabytes)
+      errors.add(:avatar,"maximum size is 1Mb")
+    end
+  end
+
+
   
 end

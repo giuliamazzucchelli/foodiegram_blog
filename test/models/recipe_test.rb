@@ -12,6 +12,7 @@ class RecipeTest < ActiveSupport::TestCase
             user_id: @user.id)
     end
 
+
     test "recipe should be valid" do
         assert @recipe.valid?
     end
@@ -66,6 +67,21 @@ class RecipeTest < ActiveSupport::TestCase
         assert_not @recipe.valid?
     end
 
+    test "picture should be image format" do
+        @recipe.picture.attach(io: File.open("C:/users/fabio/Desktop/food.txt"),filename:"food.txt")
+        assert_not @recipe.valid?
+    end
+
+    test "picture size should be valid" do
+        @recipe.picture.attach(io: File.open("C:/users/fabio/Desktop/food_largesize.jpg"),filename:"food.jpg")
+        assert_not @recipe.valid?
+    end
+
+    test "picture should be valid " do
+        @recipe.picture.attach(io: File.open("C:/users/fabio/Desktop/cookies.jpg"),filename:"food.jpg")
+        assert @recipe.valid?
+
+    end
 
 
 end

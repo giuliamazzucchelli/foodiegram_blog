@@ -27,6 +27,8 @@ class Recipe < ApplicationRecord
 
     validates :notes, length: {maximum:100}
 
+    validate :correct_picture_type
+
     def picture_thumbnail
         picture.variant(resize: "300x300!").processed
     end
@@ -36,7 +38,15 @@ class Recipe < ApplicationRecord
     end
 
 
+    private
 
-
+    def correct_picture_type
+        if picture.attached? && !picture.content_type.in?(%w(image/jpeg image/png))
+            errors.add(:picture,"must be PNG or JPEG.")
+        end
+        if picture.attached? && (picture.byte_size > 1.megabytes)
+            errors.add(:picture,"maximum size is 1Mb")
+        end    
+    end
 
 end

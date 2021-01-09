@@ -63,4 +63,20 @@ class UserTest < ActiveSupport::TestCase
     assert_not @User1.valid?
   end
 
+  test "avatar should be image format" do
+    @User1.avatar.attach(io: File.open("C:/users/fabio/Desktop/food.txt"),filename:"food.txt")
+    assert_not @User1.valid?
+  end
+
+  test "avatar size should be valid" do
+    @User1.avatar.attach(io: File.open("C:/users/fabio/Desktop/food_largesize.jpg"),filename:"food.jpg")
+    assert_not @User1.valid?
+  end
+
+  test "avatar should be valid " do
+    @User1.avatar.attach(io: File.open("C:/users/fabio/Desktop/cookies.jpg"),filename:"food.jpg")
+    assert @User1.valid?
+  end
+  
+
 end
