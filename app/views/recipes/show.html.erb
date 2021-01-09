@@ -1,7 +1,7 @@
 <h2 class="text-center mt-4"><%= @recipe.title%></h2>
 <div class="container pb-5">
     <div class="row justify-content-md-center">
-        <div class="col-8 mt-4">
+        <div class="col-12 mt-4">
             <div class="card text-center shadow  bg-white rounded">
                 <div class="card-header font-italic">
                      by <%= link_to @recipe.user.username, user_path(@recipe.user),:class=>"text-dark", style:"text-decoration:none;" %>
