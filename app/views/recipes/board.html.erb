@@ -1,8 +1,8 @@
 
 <% if @recipes.count == 0%>
     <div class="text-center mt-5">
-    <h5> Your dashboard is empty, try some delicious <%= link_to "recipes", recipes_path%> 
-    or discover some amazing <%= link_to "bloggers", users_path%></h5>
+    <h5> Your dashboard is empty, try some delicious <%= link_to "recipes", recipes_path,class:"o-link"%> 
+    or discover some amazing <%= link_to "bloggers", users_path,class:"p-link"%></h5>
     </div>
 <%else%>
     <%= paginate @recipes %>

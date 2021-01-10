@@ -35,9 +35,12 @@ class CommentsController < ApplicationController
   def destroy
     if @comment.commentable_type == 'Recipe'
       @recipe = Recipe.find(@comment.commentable_id)
+    if @comment.destroy
+      flash[:notice]= "Your comment was deleted."
+    else
+      flash[:danger]= "An error prevent your comment from being deleted."
+    redirect_back fallback_location: @recipe
     end
-    @comment.destroy
-    redirect_back fallback_location: @recipe, notice: "Your comment was deleted."
   end
   
   private

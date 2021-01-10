@@ -20,14 +20,15 @@
       <div class="dropdown-menu" aria-labelledby="navbarDropdown">
         <%= link_to "View Recipes",recipes_path, class: "dropdown-item" %>
         <% if user_signed_in? %>
+          <%= link_to "Wall", board_recipe_path(current_user), class: "dropdown-item"%>
           <%= link_to "New recipe", new_recipe_path, class: "dropdown-item" %>
         <% end %>  
       </div>
     </li>
     <li class="nav-item">
-    <div class="form-group">
-    <%= form_for "",url: recipes_path,class:"form-control col-5", role: "search",id:"search",method: :get do%>
-    <%= text_field_tag :search, @search_term, placeholder: "Search ..."%>
+    <div class="form-group col-1">
+    <%= form_for "",url: recipes_path,class:"form-control col-7", role: "search",id:"search",method: :get do%>
+    <%= text_field_tag :search, @search_term, placeholder: "Search recipes..."%>
     <% end%>
     </div>
     </li>

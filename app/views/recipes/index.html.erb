@@ -12,6 +12,4 @@
     <%= render 'recipe' %>
   <%= paginate @recipes%>
 
-<% if user_signed_in?%>
-<%= link_to 'board',board_recipe_url(current_user),class:"text-dark"%>
-<%end%>
+

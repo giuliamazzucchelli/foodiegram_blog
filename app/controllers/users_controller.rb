@@ -5,7 +5,6 @@ class UsersController < ApplicationController
 
     def show
         @recipes = @user.recipes.per_page_kaminari(params[:page])
-
     end
 
     def index
@@ -27,8 +26,11 @@ class UsersController < ApplicationController
     end
 
     def destroy
-        @user.destroy
-        flash[:notice] = "Your account was successfully deleted"
+        if @user.destroy
+            flash[:notice] = "Your account was successfully deleted"
+        else
+            flash[:alert] = "An error prevent your account from being deleted."
+        end
         redirect_to root_path
 
     end
@@ -49,7 +51,7 @@ class UsersController < ApplicationController
         if @user.avatar.purge
             flash[:notice] = "Avatar was deleted successfully."
         else
-            flash[:danger] = "Some error occured."
+            flash[:danger] = "An error prevent your avatar from being deleted."
         end
         redirect_to @user
     end

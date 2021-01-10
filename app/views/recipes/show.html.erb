@@ -43,7 +43,9 @@
                     <br/>
                     <div class="card-text text-left"><h6>Ingredients:</h6><%=simple_format(@recipe.ingredients)%></div><br/>
                     <div class="card-text text-left"><h6>Directions:</h6><%=simple_format(@recipe.directions)%></div>
-                    <div class="card-text text-left"><h6>Notes:</h6><%=simple_format(@recipe.notes)%></div>
+                    <% if @recipe.notes? %>
+                        <div class="card-text text-left"><h6>Notes:</h6><%=simple_format(@recipe.notes)%></div>
+                    <%end %>
                     <% if user_signed_in? && (current_user == @recipe.user)%>
                     <%= link_to "Edit", edit_recipe_path(@recipe), class: "btn btn-outline-info btn" %>
                     <%= link_to "Delete", recipe_path(@recipe), class: "btn btn-outline-danger btn", method: :delete, data: {confirm: "Are you sure?"} %>

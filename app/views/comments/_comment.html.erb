@@ -8,7 +8,7 @@
       <div class="d-flex flex-row comment-row mt-0 mb-3 shadow-sm ">
         <div class="p-2">
           <% if comment.user.avatar.attached? %>
-            <%= image_tag(comment.user.mini_avatar_thumbnail,alt: "Trust me I'm cool",:class=>"rounded-circle",:style=> "width:50px;") %>
+            <%= image_tag(comment.user.mini_avatar_thumbnail,alt: "Trust me I'm cool",class:"rounded-circle",width:"50",height:"50") %>
           <% else %>
             <%= image_tag("default.png", alt: "A smiling face", width: "50")%>
           <% end %>
@@ -24,7 +24,7 @@
             <span class="pl-2 mt-0"><small><%=time_ago_in_words(comment.created_at)%> ago</small></span>
 
               <% if user_signed_in?  && (comment.user==current_user)%>
-                <%= link_to "Edit", edit_recipe_comment_path(comment),class:"text-right text-info",style:"text-decoration:none;"%>
+                <%= link_to "Edit", edit_comment_path(comment),class:"text-right text-info",style:"text-decoration:none;"%>
                 <%= link_to "Delete", comment, method: :delete,class:"text-right text-danger", data: {confirm: "Are you sure?"},style:"text-decoration:none;" %>
               <% end %>
             </div>

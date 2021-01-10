@@ -22,40 +22,40 @@ class RecipesController < ApplicationController
 
   
   def new 
-      @recipe=Recipe.new
+    @recipe=Recipe.new
   end
   
   def edit
   end
   
   def create
-      @recipe=Recipe.new(recipe_params)
-      @recipe.user=current_user
-      if @recipe.save
-          flash[:notice]="Recipe was created successfully."
-          redirect_to @recipe
-      else
-          render 'new'
-      end
+    @recipe=Recipe.new(recipe_params)
+    @recipe.user=current_user
+    if @recipe.save
+        flash[:notice]="Recipe was created successfully."
+        redirect_to @recipe
+    else
+        render 'new'
+    end
   end 
   
   def update
-      if @recipe.update(recipe_params)
-          flash[:notice]="Recipe was updated successfully."
-          redirect_to @recipe
-      else
-          render 'edit'
-      end
+    if @recipe.update(recipe_params)
+        flash[:notice]="Recipe was updated successfully."
+        redirect_to @recipe
+    else
+        render 'edit'
+    end
   end
   
   def destroy
-      if @recipe.destroy
+    if @recipe.destroy
       flash[:notice]="Recipe was deleted successfully."
-      else
-      flash[:alert] = "Some error occured."
-      end
-      redirect_to recipes_path
-      
+    else
+      flash[:alert] = "An error prevent your recipe from being deleted."
+    end
+    redirect_to recipes_path
+    
   end
 
   def like
@@ -71,30 +71,26 @@ class RecipesController < ApplicationController
     if @recipe.picture.purge
       flash[:notice]="Picture was deleted successfully."
     else
-      flash[:alert] = "Some error occured."
+      flash[:alert] = "An error prevent the image from being deleted."
     end
     redirect_to @recipe
   end
 
-
-
-
   private 
   
-  def set_recipe
-      @recipe = Recipe.find(params[:id])
+    def set_recipe
+        @recipe = Recipe.find(params[:id])
+    end
+        
+     def recipe_params
+        params.require(:recipe).permit(:title,:prep_time,:cook_time,:servings,:directions,:ingredients,:notes,:picture,category_ids: [])
+    end
 
-  end
-       
-  def recipe_params
-      params.require(:recipe).permit(:title,:prep_time,:cook_time,:servings,:directions,:ingredients,:notes,:picture,category_ids: [])
-  end
-
-  def require_same_user
+    def require_same_user
       if current_user != @recipe.user
-          flash[:alert] = "You can only edit or delete your own recipe"
-          redirect_to @recipe
+        flash[:alert] = "You can only edit or delete your own recipe"
+        redirect_to @recipe
       end
-  end
+    end
 
 end
