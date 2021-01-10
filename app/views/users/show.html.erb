@@ -6,12 +6,21 @@
       <%= link_to "New recipe", new_recipe_path, class: "btn btn-outline-info btn-sm",id: "new-btn" %>
     </div>
   <% end %>
+  <div>
+    <% if @user.avatar.attached? %>
+      <%= image_tag(@user.avatar,class:"rounded-circle",width: "300",height:"300") %>
+    <% else %>
+      <%= image_tag("default.png", alt: "A smiling face", width: "300")%>
+    <% end %>
+  </div>
+  <div class="mt-1">
+    <% if user_signed_in? && current_user == @user && @user.avatar.attached?%>
+      <%= link_to  delete_avatar_attachment_user_url(@user), method: :delete, data: { confirm: 'Are you sure?' } do %>
+      <button class="btn btn-outline-danger btn-sm"><i class="fas fa-trash"></i></button>
+      <%end %>
+    <%end%>
+  </div>
 
-  <% if @user.avatar.attached? %>
-    <%= image_tag(@user.avatar,class:"rounded-circle",width: "300",height:"300") %>
-  <% else %>
-    <%= image_tag("default.png", alt: "A smiling face", width: "300")%>
-  <% end %>
     <section class="mt-4" id="all-links">
       <p>
       <%= @user.followers.size%> followers

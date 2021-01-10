@@ -1,10 +1,11 @@
 class UsersController < ApplicationController 
-    before_action :set_user, only: [:show, :edit, :update, :destroy, :follow,:unfollow]
+    before_action :set_user, except: [:index]
     before_action :authenticate_user!, except: [:show, :index]
-    before_action :require_same_user, only: [:edit, :update, :destroy]
+    before_action :require_same_user, only: [:edit, :update, :destroy,:delete_avatar_attachment]
 
     def show
         @recipes = @user.recipes.per_page_kaminari(params[:page])
+
     end
 
     def index
@@ -44,19 +45,30 @@ class UsersController < ApplicationController
         redirect_back(fallback_location: user_path(@user))
     end
 
-    private
-    #whitelist
-    def user_params
-        params.require(:user).permit(:username, :email, :password,:avatar,:username,:bio)
-    end
-
-    def set_user
-        @user=User.find(params[:id])
-    end
-    def require_same_user
-        if current_user != @user 
-          flash[:alert] = "You can only edit or delete your own account"
-          redirect_to @user
+    def delete_avatar_attachment
+        if @user.avatar.purge
+            flash[:notice] = "Avatar was deleted successfully."
+        else
+            flash[:danger] = "Some error occured."
         end
+        redirect_to @user
     end
+    
+    
+
+    private
+        #whitelist
+        def user_params
+            params.require(:user).permit(:username, :email, :password,:avatar,:username,:bio)
+        end
+
+        def set_user
+            @user=User.find(params[:id])
+        end
+        def require_same_user
+            if current_user != @user 
+            flash[:alert] = "You can only edit or delete your own account"
+            redirect_to @user
+            end
+        end
 end

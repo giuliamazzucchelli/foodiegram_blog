@@ -1,7 +1,7 @@
 class RecipesController < ApplicationController
-  before_action :set_recipe, only: [:show, :edit, :update, :destroy,:like]
+  before_action :set_recipe, only: [:show, :edit, :update, :destroy,:like,:delete_picture_attachment]
   before_action :authenticate_user!, except: [:show, :index]
-  before_action :require_same_user, only: [:edit, :update, :destroy]
+  before_action :require_same_user, only: [:edit, :update, :destroy,:delete_picture_attachment]
   respond_to :js, :html, :json
 
   def show
@@ -67,12 +67,23 @@ class RecipesController < ApplicationController
     redirect_back fallback_location: recipe_url
   end 
 
+  def delete_picture_attachment
+    if @recipe.picture.purge
+      flash[:notice]="Picture was deleted successfully."
+    else
+      flash[:alert] = "Some error occured."
+    end
+    redirect_to @recipe
+  end
+
+
 
 
   private 
   
   def set_recipe
       @recipe = Recipe.find(params[:id])
+
   end
        
   def recipe_params

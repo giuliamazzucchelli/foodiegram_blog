@@ -7,16 +7,21 @@ Rails.application.routes.draw do
     member do
       post 'follow' => 'users#follow'
       post 'unfollow' => 'users#unfollow'
+      delete 'delete_avatar_attachment' => 'users#delete_avatar_attachment'
+
     end
   end
   resources :recipes do
     member do
         put 'like' => 'recipes#like'
         get 'board' => 'recipes#board'
+        delete 'delete_picture_attachment' => 'recipes#delete_picture_attachment'
     end
     resources :comments
+
     
   end
+
 
   resources :comments, except: [:show,:index]
 
