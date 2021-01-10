@@ -23,6 +23,9 @@ class RecipesControllerTest < ActionDispatch::IntegrationTest
             user_id: @user2.id,
             created_at: Time.now,
             updated_at: Time.now )
+        
+        @recipe.picture.attach(io: File.open("C:/users/fabio/Desktop/cookies.jpg"),filename:"food.jpg")
+
     end
 
 
@@ -130,11 +133,37 @@ class RecipesControllerTest < ActionDispatch::IntegrationTest
 
     end
 
-    teardown do
-        sign_out(@user)
+    test "should delete recipe picture" do
+        sign_in(@user)
+        assert(@recipe.picture.attached?)
+        assert_difference("ActiveStorage::Attachment.count",-1) do
+            delete delete_picture_attachment_recipe_url(@recipe)
+        end
+        assert_redirected_to @recipe
+    
     end
 
 
+    test "should not delete recipe picture if not logged in" do
+        assert(@recipe.picture.attached?)
+        assert_difference("ActiveStorage::Attachment.count",0) do
+            delete delete_picture_attachment_recipe_url(@recipe)
+        end
+        assert_redirected_to new_user_session_url
+    end
+
+    test "should not delete picture of another user recipe" do
+        sign_in(@user2)
+        assert(@recipe.picture.attached?)
+        assert_difference("ActiveStorage::Attachment.count",0) do
+            delete delete_picture_attachment_recipe_url(@recipe)
+        end
+        assert_redirected_to @recipe
+    end
+
+    teardown do
+        sign_out(@user)
+    end
 
 
 end

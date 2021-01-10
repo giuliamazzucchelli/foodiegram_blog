@@ -9,6 +9,8 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     setup do
         @user = User.create(email: "usermail@example.com", password: "password", username: "User98")
         @user2 = User.create(email: "usermail2@example.com", password: "password", username: "User28")
+        @user.avatar.attach(io: File.open("C:/users/fabio/Desktop/avatar.jpg"),filename:"avatar.jpg")
+
     end
 
     test "should get index" do
@@ -104,6 +106,37 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
         sign_out(@user)
     end
 
+    test "should delete user avatar" do
+        sign_in(@user)
+        assert(@user.avatar.attached?)
+        assert_difference("ActiveStorage::Attachment.count",-1) do
+            delete delete_avatar_attachment_user_url(@user)
+        end
+        assert_redirected_to @user
+    
+    end
+
+
+    test "should not delete user avatar if not logged in" do
+        assert(@user.avatar.attached?)
+        assert_difference("ActiveStorage::Attachment.count",0) do
+            delete delete_avatar_attachment_user_url(@user)
+        end
+        assert_redirected_to new_user_session_url
+    end
+
+    test "should not delete avatar of another user" do
+        sign_in(@user2)
+        assert(@user.avatar.attached?)
+        assert_difference("ActiveStorage::Attachment.count",0) do
+            delete delete_avatar_attachment_user_url(@user)
+        end
+        assert_redirected_to @user
+    end
+
+
+
+ 
 
 
  

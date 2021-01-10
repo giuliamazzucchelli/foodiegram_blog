@@ -80,7 +80,6 @@ class RecipeTest < ActiveSupport::TestCase
     test "picture should be valid " do
         @recipe.picture.attach(io: File.open("C:/users/fabio/Desktop/cookies.jpg"),filename:"food.jpg")
         assert @recipe.valid?
-
     end
 
 
