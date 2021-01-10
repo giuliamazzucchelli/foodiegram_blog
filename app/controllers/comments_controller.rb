@@ -19,10 +19,8 @@ class CommentsController < ApplicationController
   end
 
   def update
-
     if @comment.update(comment_params)
       flash[:notice]="Comment was updated successfully."
-    
       if @comment.commentable_type == 'Recipe'
          @recipe = Recipe.find(@comment.commentable_id)
         redirect_to @recipe
@@ -34,12 +32,13 @@ class CommentsController < ApplicationController
 
   def destroy
     if @comment.commentable_type == 'Recipe'
-      @recipe = Recipe.find(@comment.commentable_id)
-    if @comment.destroy
-      flash[:notice]= "Your comment was deleted."
-    else
-      flash[:danger]= "An error prevent your comment from being deleted."
-    redirect_back fallback_location: @recipe
+        @recipe = Recipe.find(@comment.commentable_id)
+      if @comment.destroy
+        flash[:notice]= "Your comment was deleted."
+      else
+        flash[:danger]= "An error prevent your comment from being deleted."
+      redirect_back fallback_location: @recipe
+      end
     end
   end
   
@@ -63,7 +62,6 @@ class CommentsController < ApplicationController
       end
     end
 
-      
     def set_commentable
     end
     
