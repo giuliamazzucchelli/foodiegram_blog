@@ -1,11 +1,13 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
 one:
-  content: MyString
-  commentable_id: 1
-  commentable_type: MyString
+  body: Good!
+  commentable_id: 2033
+  commentable_type: Recipe
+  user_id: 1023
 
 two:
-  content: MyString
-  commentable_id: 1
-  commentable_type: MyString
+  body: Delicious
+  commentable_id: 2099
+  commentable_type: Recipe
+  user_id: 1023
+

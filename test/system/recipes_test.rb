@@ -7,11 +7,13 @@ class RecipesTest < ActionDispatch::SystemTestCase
   driven_by :selenium, using: :chrome
   include Devise::Test::IntegrationHelpers
 
+  setup do
+    @user = users(:user_one)
+    sign_in(@user)
+    visit user_path(@user)
+  end
+
   test "should create edit  a recipe" do
-    visit new_user_session_path
-    fill_in "Email",with: "userdem@demo.com"
-    fill_in "Password",with: "password"
-    click_on :commit
     click_on "New recipe"
     fill_in "Title",with: "Chocolate cookies"
     fill_in "Prep time",with: 15
@@ -29,9 +31,7 @@ class RecipesTest < ActionDispatch::SystemTestCase
     click_on :commit
     text = find(:xpath, "//*[@id='page-content']/div[1]/div").text
     assert text.include?("Recipe was updated successfully")
-   
   end
 
 
-  
 end

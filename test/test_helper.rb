@@ -4,6 +4,7 @@ require 'rails/test_help'
 
 class ActiveSupport::TestCase
 
+  fixtures :all
   #parallelize(workers: :number_of_processors, with: :threads)
 
 

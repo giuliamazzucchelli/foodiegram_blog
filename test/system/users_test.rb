@@ -8,8 +8,8 @@ class UsersTest < ActionDispatch::SystemTestCase
   include Devise::Test::IntegrationHelpers
 
     setup do
-      @user = User.create( email: "john99@example.com",password: "password",username:"Username6868",remember_created_at: Time.now, created_at: Time.now)
-
+      @user = users(:user_one)
+      @user2 = users(:user_two)
     end
 
 
@@ -18,7 +18,7 @@ class UsersTest < ActionDispatch::SystemTestCase
       fill_in "Email", with: "user23@example.com"
       fill_in "Password",with: "password"
       fill_in "Password confirmation",with: "password"
-      fill_in "Username", with: "user231"
+      fill_in "Username", with: "user23"
       click_on :commit
       text = find(:xpath, "//*[@id='page-content']/div[1]/div").text
       assert text.include?("Welcome! You have signed up successfully.")
@@ -26,7 +26,7 @@ class UsersTest < ActionDispatch::SystemTestCase
       attach_file("Avatar","C:/users/Fabio/Desktop/hummus.jpg")
       fill_in "Bio",with: "Hello foodies"
       click_on :commit
-      click_on "user231"
+      click_on "user23"
       click_on "Log out"
       text = find(:xpath, "//*[@id='page-content']/div[1]/div").text
       assert text.include?("Signed out successfully")
@@ -35,9 +35,7 @@ class UsersTest < ActionDispatch::SystemTestCase
 
     test "should follow and then unfollow" do
       sign_in(@user)
-      visit root_path
-      click_on "Bloggers"
-      click_on "username"
+      visit user_path(@user2)
       assert_no_selector(:xpath,"//*[@id='unfollow-btn']")
       click_on "Follow"
       assert_no_selector(:xpath,"//*[@id='follow-btn']")
@@ -47,22 +45,17 @@ class UsersTest < ActionDispatch::SystemTestCase
 
     test "should follow a user and see their recipes on the board" do
       sign_in(@user)
-      visit root_path
-      click_on "Bloggers"
-      click_on "username"
+      visit user_path(@user2)
       assert_no_selector(:xpath,"//*[@id='unfollow-btn']")
       click_on "Follow"
       visit board_recipe_url(@user)
-      assert "h5","Chocolate cookies"
+      assert "h5","Chocolate Cake"
     end
 
     test "a user should not follow himself " do
       sign_in(@user)
-      visit root_path
-      click_on "Username6868"
-      click_on "Profile"
+      visit user_path(@user)
       assert_no_selector(:xpath,"//*[@id='follow-btn']")
     end
-
 
 end

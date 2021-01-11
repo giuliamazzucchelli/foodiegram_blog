@@ -1,5 +1,5 @@
 class CommentsController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, only: [:new,:create,:edit,:update,:destroy]
   before_action :set_comment, only: [:edit,:update,:destroy]
   before_action :require_same_user, only: [:edit,:update,:destroy]
   
@@ -37,8 +37,8 @@ class CommentsController < ApplicationController
         flash[:notice]= "Your comment was deleted."
       else
         flash[:danger]= "An error prevent your comment from being deleted."
-      redirect_back fallback_location: @recipe
       end
+      redirect_back fallback_location: @recipe
     end
   end
   

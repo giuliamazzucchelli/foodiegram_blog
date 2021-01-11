@@ -3,27 +3,10 @@ require 'test_helper'
 class RecipesControllerTest < ActionDispatch::IntegrationTest
     include Devise::Test::IntegrationHelpers
     def setup
-        @user = User.create(email:"userdemo@example.com",password:"password",username:"UserDemo",bio:"Hello",remember_created_at: Time.now,created_at: Time.now)
-        @user2 = User.create(email:"userdemo2@example.com",password:"password",username:"UserDemo2",bio:"Hello",remember_created_at: Time.now,created_at: Time.now)
-
-        @recipe = Recipe.create( title: "Chocolate Cookies",
-            servings: 4,
-            prep_time: 15,
-            cook_time: 10,
-            ingredients: "1 cup flour 1/2 cup cane sugar 1/2 cup  white sugar 1 egg, 1 pinch of salt 1/4 cup chocolate chips ",
-            directions: "Melt the butter using a double-boiler.Mix the dry ingredients then add the egg and the butter , put in the hoven for 10 minutes. Let the cookies cool before serving.",
-            user_id: @user.id,
-            created_at: Time.now,
-            updated_at: Time.now )
-
-        @recipe2 = Recipe.create( title: "Chocolate Cookies",
-            prep_time: 15,
-            ingredients: "1 cup flour 1/2 cup cane sugar 1/2 cup  white sugar 1 egg, 1 pinch of salt 1/4 cup chocolate chips ",
-            directions: "Melt the butter using a double-boiler.Mix the dry ingredients then add the egg and the butter , put in the hoven for 10 minutes. Let the cookies cool before serving.",
-            user_id: @user2.id,
-            created_at: Time.now,
-            updated_at: Time.now )
-        
+        @user = users(:user_one)
+        @user2 = users(:user_two)
+        @recipe = recipes(:recipe_one)
+        @recipe2 = recipes(:recipe_two)
         @recipe.picture.attach(io: File.open("C:/users/fabio/Desktop/cookies.jpg"),filename:"food.jpg")
 
     end

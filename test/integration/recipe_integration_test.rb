@@ -4,17 +4,9 @@ class RecipeIntegrationTest < ActionDispatch::IntegrationTest
     include Devise::Test::IntegrationHelpers
 
   setup do
-    @user = User.create( email: "john99@example.com",password: "password",username:"Username6868",remember_created_at: Time.now, created_at: Time.now)
+    @user = users(:user_one)
     sign_in(@user)
-    @recipe = Recipe.create( title: "Chocolate Cookies",
-          servings: 4,
-          prep_time: 15,
-          cook_time: 10,
-          ingredients: "1 cup flour 1/2 cup cane sugar 1/2 cup  white sugar 1 egg, 1 pinch of salt 1/4 cup chocolate chips ",
-          directions: "Melt the butter using a double-boiler.Mix the dry ingredients then add the egg and the butter , put in the hoven for 10 minutes. Let the cookies cool before serving.",
-          user_id: @user.id,
-          created_at: Time.now,
-          updated_at: Time.now )
+    @recipe = recipes(:recipe_one)
 
   end
 
@@ -71,13 +63,12 @@ class RecipeIntegrationTest < ActionDispatch::IntegrationTest
       assert_response :success
       assert_select "h2", @recipe.title
     end
-=begin
+    
     test "should search" do
-      get '/recipes?search=coOKies'
-      assert_select "h1","2 recipes found for cookies"
+      get '/recipes?search=cAKe'
+      assert_select "h1","3 recipes found for cake"
       
     end
-=end
     test "should notice if no recipe found" do
       get '/recipes?search=@@!'
       assert_select "h1","No recipes found for @@!"
