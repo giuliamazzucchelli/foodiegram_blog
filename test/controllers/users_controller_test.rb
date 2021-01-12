@@ -7,8 +7,8 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
 
 
     setup do
-        @user = User.create(email: "usermail@example.com", password: "password", username: "User98")
-        @user2 = User.create(email: "usermail2@example.com", password: "password", username: "User28")
+        @user = users(:user_one)
+        @user2 =users(:user_two)
         @user.avatar.attach(io: File.open("C:/users/fabio/Desktop/avatar.jpg"),filename:"avatar.jpg")
 
     end
@@ -134,10 +134,38 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
         assert_redirected_to @user
     end
 
+    test "should delete user's comments when a user is deleted" do
+        sign_in(@user)
+        count_comments = @user.comments.count
+        assert_difference('Comment.count',-count_comments) do
+            delete user_path(@user)
+        end
+    end
+
+    test "should delete user's recipes when a user is deleted" do
+        sign_in(@user)
+        count_recipes = @user.recipes.count
+        assert_difference('Recipe.count',-count_recipes) do
+            delete user_path(@user)
+        end
+    end
+
+    test "should delete user as a follower when user is deleted" do
+        sign_in(@user)
+        count_followes = users(:user_three).followers.size
+        assert_difference('Follow.count',-count_followes) do
+            delete user_path(@user)
+        end
+    end
+
+    test "should delete user votes to other users recipes when user is deleted" do
+        sign_in(@user)
+        assert_difference("Vote.where('voter_id= ?', @user.id).count",-1) do
+            delete user_path(@user)
+        end
+    end
 
 
- 
 
-
- 
+        
 end

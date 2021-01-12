@@ -11,3 +11,9 @@ two:
   commentable_type: Recipe
   user_id: 1023
 
+
+three:
+  body: Tasteless
+  commentable_id: 2099
+  commentable_type: Recipe
+  user_id: 1023

@@ -144,6 +144,25 @@ class RecipesControllerTest < ActionDispatch::IntegrationTest
         assert_redirected_to @recipe
     end
 
+    test "should delete recipe's comments when a recipe is deleted" do
+        sign_in(@user)
+        count_comments = @recipe.comments.count
+        assert_difference('Comment.count',-count_comments) do
+            delete recipe_url(@recipe)
+        end
+
+    end
+
+    test "should delete recipe's votes when a recipe is deleted" do
+        sign_in(@user)
+        assert_difference("Vote.where('votable_id= ?',@recipe.id).count",-2) do
+            delete recipe_url(@recipe)
+        end
+
+    end
+
+
+
     teardown do
         sign_out(@user)
     end

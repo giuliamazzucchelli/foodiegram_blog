@@ -28,3 +28,11 @@ user_two:
   created_at: 2011-01-02 08:31:23
   updated_at: 2011-01-02 08:31:23
   username: UserOneFood2
+
+user_three:
+  id: 1099
+  email: useronetest3@gmail.com
+  encrypted_password: 2EEeeàevpsppsps!
+  created_at: 2011-01-02 08:31:23
+  updated_at: 2011-01-02 08:31:23
+  username: UserOneFood3
