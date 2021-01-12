@@ -37,10 +37,26 @@ class RecipeTest < ActiveSupport::TestCase
         assert_not @recipe.valid?
     end
 
+    test "prep time should be a number" do
+        @recipe.prep_time = "l"
+        assert_not @recipe.valid?
+    end
+
     test "serving should not be 0" do
         @recipe.servings = 0
         assert_not @recipe.valid?
     end
+
+    test "serving should be a number" do
+        @recipe.servings = "l"
+        assert_not @recipe.valid?
+    end
+
+    test "cook_time should be a number" do
+        @recipe.cook_time = "l"
+        assert_not @recipe.valid?
+    end
+
 
     test "directions should be present" do
         @recipe.directions = ""

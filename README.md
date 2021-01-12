@@ -18,10 +18,12 @@ Gli utenti registrati, una volta autenticati attraverso un form di login hanno l
 3. Commentare le ricette sia proprie che di altri utenti, con la possibilità di modificare e/o eliminare i propri commenti.
 4. Seguire altri utenti.
 5. Togliere il 'segui' da utenti seguiti.
-6. Visualizzare in una pagina dedicata, le sole ricette degli utenti seguiti.
+6. Visualizzare, in una pagina dedicata, le sole ricette degli utenti seguiti.
 7. Mettere 'like' alle ricette (sia proprie che di altri utenti) ed eventualmente rimuoverlo.
 8. Effettuare il logout.
 9. Eliminare il proprio account.
+
+Gli utenti registrati possono compiere anche le azioni dell'utente guest.
 
 Gli utenti amministratori, una volta autenticati, hanno la possibilità di:
 1. Visualizzare, modificare, eliminare e aggiungere gli utenti.
