@@ -4,7 +4,7 @@ class Recipe < ApplicationRecord
     has_many :recipe_categories
     has_many :categories, through: :recipe_categories
     acts_as_votable
-    has_many :comments, as: :commentable
+    has_many :comments, as: :commentable,dependent: :destroy
 
     scope :of_followed_users, -> (following_users) { where user_id: following_users }
 

@@ -7,9 +7,9 @@ class User < ApplicationRecord
   has_many :recipes, dependent: :destroy
   acts_as_voter
   has_many :followed_users, foreign_key: :follower_id, class_name: 'Follow'
-  has_many :followees, through: :followed_users
+  has_many :followees, through: :followed_users, dependent: :destroy
   has_many :following_users, foreign_key: :followee_id, class_name: 'Follow'
-  has_many :followers, through: :following_users
+  has_many :followers, through: :following_users, dependent: :destroy
   has_many :comments, dependent: :destroy
   
   validate :correct_avatar_type
